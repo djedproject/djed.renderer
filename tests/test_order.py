@@ -1,6 +1,6 @@
 from djed.templates.layer import ID_LAYER
 
-from base import BaseTestCase
+from .base import BaseTestCase
 
 
 class TestOrder(BaseTestCase):
@@ -10,9 +10,9 @@ class TestOrder(BaseTestCase):
 
     def test_custom_dir(self):
         self.config.add_layer(
-            'test', 'l1', path='djed.templates:tests/dir1/')
+            'test', 'l1', path='tests:dir1/')
         self.config.add_layer(
-            'test', 'l2', path='djed.templates:tests/bundle/dir1/')
+            'test', 'l2', path='tests:bundle/dir1/')
         self.config.commit()
 
         storage = self.registry.get(ID_LAYER)
@@ -29,9 +29,9 @@ class TestOrderUnknown(BaseTestCase):
 
     def test_custom_dir(self):
         self.config.add_layer(
-            'test', 'l1', path='djed.templates:tests/dir1/')
+            'test', 'l1', path='tests:dir1/')
         self.config.add_layer(
-            'test', 'l2', path='djed.templates:tests/bundle/dir1/')
+            'test', 'l2', path='tests:bundle/dir1/')
         self.config.commit()
 
         storage = self.registry.get(ID_LAYER)

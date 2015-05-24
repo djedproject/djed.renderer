@@ -1,7 +1,7 @@
 from pyramid.exceptions import ConfigurationError
 from djed.templates.layer import ID_LAYER
 
-from base import BaseTestCase
+from .base import BaseTestCase
 
 
 class TestSettingsError(BaseTestCase):
@@ -17,14 +17,18 @@ class TestSettingsError(BaseTestCase):
 class TestSettingsCustom(BaseTestCase):
 
     _auto_commit = False
-    _settings = {'djed.templates.custom': 'djed.templates:tests/bundle/'}
+    _settings = {'djed.templates.custom': 'tests:bundle'}
 
     def test_custom_dir(self):
         self.config.add_layer(
-            'dir1', path='djed.templates:tests/dir1/')
+            'dir1', path='tests:dir1/')
         self.config.commit()
 
         storage = self.registry.get(ID_LAYER)
+
+        for k, v in storage.items():
+            for i in v:
+                print(i.__dict__)
         self.assertIn('dir1', storage)
         self.assertEqual(2, len(storage['dir1']))
         self.assertEqual('layer_custom', storage['dir1'][0]['name'])

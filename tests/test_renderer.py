@@ -1,19 +1,19 @@
 import djed.templates
-from base import BaseTestCase
+from .base import BaseTestCase
 
 
 class TestRequestRenderers(BaseTestCase):
 
     def test_render_template(self):
         self.config.add_layer(
-            'test', path='djed.templates:tests/dir1/')
+            'test', path='tests:dir1/')
 
         text = self.request.render_template('test:view', object()).strip()
         self.assertEqual(text, '<h1>Test</h1>')
 
     def test_render_template_with_filter(self):
         self.config.add_layer(
-            'test', path='djed.templates:tests/dir1/')
+            'test', path='tests:dir1/')
 
         _calls = []
         def _filter(context, request):
@@ -30,7 +30,7 @@ class TestRequestRenderers(BaseTestCase):
 
     def test_render_template_ext(self):
         self.config.add_layer(
-            'test', path='djed.templates:tests/dir1/')
+            'test', path='tests:dir1/')
 
         text = self.request.render_template('test:view.lt', object()).strip()
         self.assertEqual(text, '<h1>Test</h1>')
@@ -40,22 +40,22 @@ class TestRequestRenderers(BaseTestCase):
             ValueError, self.request.render_template, 'test:view')
 
         self.config.add_layer(
-            'test', path='djed.templates:tests/dir1/')
+            'test', path='tests:dir1/')
         self.assertRaises(
             ValueError, self.request.render_template, 'test:view2')
 
     def test_render_template_customize(self):
         self.config.add_layer(
-            'test', path='djed.templates:tests/dir1/')
+            'test', path='tests:dir1/')
         self.config.add_layer(
-            'test', 'custom', path='djed.templates:tests/bundle/dir1/')
+            'test', 'custom', path='tests:bundle/dir1/')
 
         text = self.request.render_template('test:view', object()).strip()
         self.assertEqual(text, '<h2>Test</h2>')
 
     def test_template(self):
         self.config.add_layer(
-            'test', path='djed.templates:tests/dir1/')
+            'test', path='tests:dir1/')
 
         from djed.templates.renderer import template
         tmpl = template('test:view')
@@ -65,7 +65,7 @@ class TestRequestRenderers(BaseTestCase):
 
     def test_pyramid_renderer(self):
         self.config.add_layer(
-            'test', path='djed.templates:tests/dir1/')
+            'test', path='tests:dir1/')
 
         from pyramid.renderers import render
 
@@ -77,7 +77,7 @@ class TestRequestRenderers(BaseTestCase):
         Raise ValueError if template can't be found.
         """
         self.config.add_layer(
-            'test', path='djed.templates:tests/dir1/')
+            'test', path='tests:dir1/')
 
         from pyramid.renderers import render
 
@@ -94,7 +94,7 @@ class TestRender(BaseTestCase):
         super(TestRender, self).setUp()
 
         self.config.add_layer(
-            'test', path='djed.templates:tests/dir1/')
+            'test', path='tests:dir1/')
 
     def test_render(self):
         text = djed.templates.render(self.request, 'test:view').strip()
@@ -105,5 +105,5 @@ class TestRender(BaseTestCase):
         It is possible to use standard renderers as asset var
         """
         text = djed.templates.render(
-            self.request, 'djed.templates:tests/dir1/view.pt')
+            self.request, 'tests:dir1/view.pt')
         self.assertEqual(text, '<h1>Test</h1>')

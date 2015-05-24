@@ -2,7 +2,7 @@ from unittest import mock
 from pyramid.exceptions import ConfigurationError
 from pyramid.exceptions import ConfigurationConflictError
 
-from base import BaseTestCase
+from .base import BaseTestCase
 
 
 class TestLayerDirective(BaseTestCase):
@@ -28,7 +28,7 @@ class TestLayer(BaseTestCase):
         from djed.templates.layer import ID_LAYER
 
         self.config.add_layer(
-            'test', path='djed.templates:tests/dir1/')
+            'test', path='tests:dir1/')
         self.config.commit()
 
         data = self.registry.get(ID_LAYER)
@@ -36,7 +36,7 @@ class TestLayer(BaseTestCase):
         self.assertEqual(len(data['test']), 1)
         self.assertEqual(data['test'][0]['name'], '')
         self.assertTrue(data['test'][0]['path'].endswith(
-            'djed/templates/tests/dir1/'))
+            'tests/dir1/'))
 
     def test_layer_path_required(self):
         self.assertRaises(
@@ -46,11 +46,11 @@ class TestLayer(BaseTestCase):
         from djed.templates.layer import ID_LAYER
 
         self.config.add_layer(
-            'test', path='djed.templates:tests/dir1/')
+            'test', path='tests:dir1/')
         self.config.commit()
 
         self.config.add_layer(
-            'test', 'custom', path='djed.templates:tests/bundle/dir1/')
+            'test', 'custom', path='tests:bundle/dir1/')
         self.config.commit()
 
         data = self.registry.get(ID_LAYER)
@@ -58,16 +58,16 @@ class TestLayer(BaseTestCase):
         self.assertEqual(len(data['test']), 2)
         self.assertEqual(data['test'][0]['name'], 'custom')
         self.assertTrue(data['test'][0]['path'].endswith(
-            'djed/templates/tests/bundle/dir1/'))
+            'tests/bundle/dir1/'))
         self.assertEqual(data['test'][1]['name'], '')
         self.assertTrue(data['test'][1]['path'].endswith(
-            'djed/templates/tests/dir1/'))
+            'tests/dir1/'))
 
     def test_register_layers(self):
         from djed.templates.layer import ID_LAYER
 
         self.config.add_layers(
-            'custom', path='djed.templates:tests/bundle/')
+            'custom', path='tests:bundle/')
         self.config.commit()
 
         data = self.registry.get(ID_LAYER)
@@ -75,15 +75,15 @@ class TestLayer(BaseTestCase):
         self.assertEqual(len(data['dir1']), 1)
         self.assertEqual(data['dir1'][0]['name'], 'custom')
         self.assertTrue(data['dir1'][0]['path'].endswith(
-            'djed/templates/tests/bundle/dir1'))
+            'tests/bundle/dir1'))
 
     def test_reg_conflict(self):
         self.config.commit()
 
         self.config.add_layer(
-            'test', path='djed.templates:tests/dir1/')
+            'test', path='tests:dir1/')
         self.config.add_layer(
-            'test', path='djed.templates:tests/bundle/dir1/')
+            'test', path='tests:bundle/dir1/')
 
         self.assertRaises(
             ConfigurationConflictError, self.config.commit)
@@ -119,9 +119,9 @@ class TestTemplateFilter(BaseTestCase):
         from djed.templates.layer import ID_LAYER
 
         self.config.add_layer(
-            'test', path='djed.templates:tests/dir1/')
+            'test', path='tests:dir1/')
         self.config.add_layer(
-            'test', 'custom', path='djed.templates:tests/bundle/dir1/')
+            'test', 'custom', path='tests:bundle/dir1/')
 
         def _filter(context, request):
             return {}
