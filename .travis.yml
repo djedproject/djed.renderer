@@ -5,7 +5,6 @@ python:
   - 3.4
 
 install:
-  - python setup.py develop --allow-hosts='pypi.python.org'
   - pip install -e .[testing]
 
 script:
