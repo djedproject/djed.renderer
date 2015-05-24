@@ -1,12 +1,15 @@
 language: python
+sudo: false
 python:
   - 3.3
   - 3.4
 
 install:
   - python setup.py develop --allow-hosts='pypi.python.org'
+  - pip install -e .[testing]
 
 script:
   - python setup.py test
+
 notifications:
   email: false

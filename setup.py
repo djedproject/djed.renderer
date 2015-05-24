@@ -10,13 +10,13 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
 
 install_requires = [
     'pyramid',
-    ]
+]
 
 tests_require = install_requires + [
     'nose',
     'pyramid_chameleon',
     'webtest',
-    ]
+]
 
 
 setup(
@@ -41,6 +41,8 @@ setup(
     packages=['djed.templates'],
     include_package_data=True,
     install_requires=install_requires,
-    tests_require=tests_require,
+    extras_require={
+        'testing': tests_require,
+    },
     test_suite='nose.collector',
 )
