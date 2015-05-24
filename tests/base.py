@@ -8,7 +8,7 @@ from pyramid.interfaces import IRequestExtensions
 
 class BaseTestCase(TestCase):
 
-    _includes = ('djed.templates', 'pyramid_chameleon')
+    _includes = ('djed.renderer', 'pyramid_chameleon')
     _auto_commit = True
     _settings = {}
     _environ = {

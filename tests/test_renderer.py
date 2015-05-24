@@ -1,4 +1,4 @@
-import djed.templates
+import djed.renderer
 from .base import BaseTestCase
 
 
@@ -57,7 +57,7 @@ class TestRequestRenderers(BaseTestCase):
         self.config.add_layer(
             'test', path='tests:dir1/')
 
-        from djed.templates.renderer import template
+        from djed.renderer.renderer import template
         tmpl = template('test:view')
 
         text = tmpl(self.request, object())
@@ -97,13 +97,13 @@ class TestRender(BaseTestCase):
             'test', path='tests:dir1/')
 
     def test_render(self):
-        text = djed.templates.render(self.request, 'test:view').strip()
+        text = djed.renderer.render(self.request, 'test:view').strip()
         self.assertEqual(text, '<h1>Test</h1>')
 
     def test_render_standard(self):
         """
         It is possible to use standard renderers as asset var
         """
-        text = djed.templates.render(
+        text = djed.renderer.render(
             self.request, 'tests:dir1/view.pt')
         self.assertEqual(text, '<h1>Test</h1>')

@@ -1,4 +1,4 @@
-from djed.templates.layer import ID_LAYER
+from djed.renderer.layer import ID_LAYER
 
 from .base import BaseTestCase
 
@@ -6,7 +6,7 @@ from .base import BaseTestCase
 class TestOrder(BaseTestCase):
 
     _auto_commit = False
-    _settings = {'djed.templates.order.test': 'l1 l2 l3'}
+    _settings = {'djed.renderer.order.test': 'l1 l2 l3'}
 
     def test_custom_dir(self):
         self.config.add_layer(
@@ -25,7 +25,7 @@ class TestOrder(BaseTestCase):
 class TestOrderUnknown(BaseTestCase):
 
     _auto_commit = False
-    _settings = {'djed.templates.order.test2': 'l1 l2 l3'}
+    _settings = {'djed.renderer.order.test2': 'l1 l2 l3'}
 
     def test_custom_dir(self):
         self.config.add_layer(

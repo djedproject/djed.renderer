@@ -13,7 +13,7 @@ class TestLayerDirective(BaseTestCase):
         self.assertFalse(hasattr(self.config, 'add_layer'))
         self.assertFalse(hasattr(self.config, 'add_layers'))
         self.assertFalse(hasattr(self.config, 'add_template_filter'))
-        self.config.include('djed.templates')
+        self.config.include('djed.renderer')
 
         self.assertTrue(hasattr(self.config, 'add_layer'))
         self.assertTrue(hasattr(self.config, 'add_layers'))
@@ -25,7 +25,7 @@ class TestLayer(BaseTestCase):
     _auto_commit = False
 
     def test_layer_registration(self):
-        from djed.templates.layer import ID_LAYER
+        from djed.renderer.layer import ID_LAYER
 
         self.config.add_layer(
             'test', path='tests:dir1/')
@@ -43,7 +43,7 @@ class TestLayer(BaseTestCase):
             ConfigurationError, self.config.add_layer, 'test')
 
     def test_multple_layer_registration(self):
-        from djed.templates.layer import ID_LAYER
+        from djed.renderer.layer import ID_LAYER
 
         self.config.add_layer(
             'test', path='tests:dir1/')
@@ -64,7 +64,7 @@ class TestLayer(BaseTestCase):
             'tests/dir1/'))
 
     def test_register_layers(self):
-        from djed.templates.layer import ID_LAYER
+        from djed.renderer.layer import ID_LAYER
 
         self.config.add_layers(
             'custom', path='tests:bundle/')
@@ -99,11 +99,11 @@ class TestTemplateFilter(BaseTestCase):
             ConfigurationError,
             self.config.add_template_filter, 'test:view', _filter)
 
-    @mock.patch('djed.templates.layer.venusian')
+    @mock.patch('djed.renderer.layer.venusian')
     def test_add_template_filter_deco_err(self, m_venusian):
-        import djed.templates
+        import djed.renderer
 
-        @djed.templates.template_filter('test:view')
+        @djed.renderer.template_filter('test:view')
         def _filter(context, request):
             return {}
 
@@ -116,7 +116,7 @@ class TestTemplateFilter(BaseTestCase):
             ConfigurationError, cb, m_venusian, 't', _filter)
 
     def test_add_template_filter(self):
-        from djed.templates.layer import ID_LAYER
+        from djed.renderer.layer import ID_LAYER
 
         self.config.add_layer(
             'test', path='tests:dir1/')

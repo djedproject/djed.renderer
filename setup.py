@@ -20,9 +20,9 @@ tests_require = [
 
 
 setup(
-    name='djed.templates',
+    name='djed.renderer',
     version='0.0',
-    description='djed.templates',
+    description='djed.renderer',
     long_description=README + '\n\n' + CHANGES,
     classifiers=[
         "Framework :: Pyramid",
@@ -35,10 +35,10 @@ setup(
     ],
     author='Djed developers',
     author_email='djedproject@googlegroups.com',
-    url='https://github.com/djedproject/djed.templates',
+    url='https://github.com/djedproject/djed.renderer',
     license='ISC License (ISCL)',
     keywords='web pyramid pylons',
-    packages=['djed.templates'],
+    packages=['djed.renderer'],
     include_package_data=True,
     install_requires=install_requires,
     extras_require={

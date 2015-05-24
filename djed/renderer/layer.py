@@ -7,9 +7,9 @@ from pyramid.exceptions import ConfigurationError
 from pyramid.interfaces import IViewMapperFactory
 from pyramid.config.views import DefaultViewMapper
 
-log = logging.getLogger('djed.templates')
+log = logging.getLogger('djed.renderer')
 
-ID_LAYER = 'djed:templates'
+ID_LAYER = 'djed.renderer'
 
 
 def add_layer(cfg, layer, name='', path='', description=''):
@@ -98,7 +98,7 @@ class template_filter(object):
             add_template_filter(
                 cfg, self.template, ob, self.name, self.description)
 
-        info = venusian.attach(wrapped, callback, category='djed:templates')
+        info = venusian.attach(wrapped, callback, category='djed.renderer')
 
         return wrapped
 
@@ -109,7 +109,7 @@ def change_layers_order(cfg, info):
     for name, layers in info.items():
         data = storage.get(name)
         if not data:
-            log.warning('djed.templates.order.%s setting is not found'%name)
+            log.warning('djed.renderer.order.%s setting is not found'%name)
             continue
 
         def in_data(name, data):

@@ -1,6 +1,6 @@
-from djed.templates.layer import template_filter
-from djed.templates.renderer import render
-from djed.templates.renderer import RendererNotFound
+from djed.renderer.layer import template_filter
+from djed.renderer.renderer import render
+from djed.renderer.renderer import RendererNotFound
 
 def includeme(config):
     import os
@@ -8,9 +8,9 @@ def includeme(config):
     from pyramid.settings import aslist
     from pyramid.exceptions import ConfigurationError
 
-    from djed.templates.renderer import lt_renderer_factory
-    from djed.templates.layer import add_layer, add_layers, change_layers_order
-    from djed.templates.layer import add_template_filter
+    from djed.renderer.renderer import lt_renderer_factory
+    from djed.renderer.layer import add_layer, add_layers, change_layers_order
+    from djed.renderer.layer import add_template_filter
 
 
     # config directives
@@ -29,17 +29,17 @@ def includeme(config):
 
     order = {}
     for key, val in settings.items():
-        if key.startswith('djed.templates.order.'):
-            layer = key[21:]
+        if key.startswith('djed.renderer.order.'):
+            layer = key[20:]
             order[layer] = [s.strip() for s in aslist(val)]
 
     if order:
         config.action(
-            'djed.templates.order',
+            'djed.renderer.order',
             change_layers_order, (config, order), order=999999+1)
 
     # global custom layer
-    custom = settings.get('djed.templates.custom', '').strip()
+    custom = settings.get('djed.renderer.custom', '').strip()
     if custom:
         resolver = AssetResolver()
         directory = resolver.resolve(custom).abspath()
@@ -48,5 +48,5 @@ def includeme(config):
                 "Directory is required for layer.custom setting: %s"%custom)
 
         config.action(
-            'djed.templates.custom',
+            'djed.renderer.custom',
             add_layers, (config, 'layer_custom', custom), order=999999+2)

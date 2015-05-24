@@ -1,6 +1,6 @@
 ==============
-djed.templates
+djed.renderer
 ==============
 
-.. image:: https://travis-ci.org/djedproject/djed.templates.png?branch=master
-        :target: https://travis-ci.org/djedproject/djed.templates
+.. image:: https://travis-ci.org/djedproject/djed.renderer.png?branch=master
+        :target: https://travis-ci.org/djedproject/djed.renderer

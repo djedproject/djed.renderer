@@ -1,23 +1,23 @@
 from pyramid.exceptions import ConfigurationError
-from djed.templates.layer import ID_LAYER
+from djed.renderer.layer import ID_LAYER
 
 from .base import BaseTestCase
 
 
 class TestSettingsError(BaseTestCase):
 
-    _settings = {'djed.templates.custom': 'unknown'}
+    _settings = {'djed.renderer.custom': 'unknown'}
     _includes = ()
 
     def test_custom(self):
         self.assertRaises(
-            ConfigurationError, self.config.include, 'djed.templates')
+            ConfigurationError, self.config.include, 'djed.renderer')
 
 
 class TestSettingsCustom(BaseTestCase):
 
     _auto_commit = False
-    _settings = {'djed.templates.custom': 'tests:bundle'}
+    _settings = {'djed.renderer.custom': 'tests:bundle'}
 
     def test_custom_dir(self):
         self.config.add_layer(
