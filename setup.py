@@ -12,7 +12,7 @@ install_requires = [
     'pyramid',
 ]
 
-tests_require = install_requires + [
+tests_require = [
     'nose',
     'pyramid_chameleon',
     'webtest',
