@@ -1,7 +1,7 @@
 from pyramid.exceptions import ConfigurationError
 from djed.renderer.layer import ID_LAYER
 
-from .base import BaseTestCase
+from djed.testing import BaseTestCase
 
 
 class TestSettingsError(BaseTestCase):
@@ -16,7 +16,8 @@ class TestSettingsError(BaseTestCase):
 
 class TestSettingsCustom(BaseTestCase):
 
-    _auto_commit = False
+    _includes = ('djed.renderer', 'pyramid_chameleon')
+    _autocommit = False
     _settings = {'djed.renderer.custom': 'tests:bundle'}
 
     def test_custom_dir(self):

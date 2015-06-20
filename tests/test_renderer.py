@@ -1,8 +1,10 @@
 import djed.renderer
-from .base import BaseTestCase
+from djed.testing import BaseTestCase
 
 
 class TestRequestRenderers(BaseTestCase):
+
+    _includes = ('djed.renderer', 'pyramid_chameleon')
 
     def test_render_template(self):
         self.config.add_layer(
@@ -89,6 +91,8 @@ class TestRequestRenderers(BaseTestCase):
 
 
 class TestRender(BaseTestCase):
+
+    _includes = ('djed.renderer', 'pyramid_chameleon')
 
     def setUp(self):
         super(TestRender, self).setUp()

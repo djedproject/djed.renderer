@@ -1,11 +1,12 @@
 from djed.renderer.layer import ID_LAYER
 
-from .base import BaseTestCase
+from djed.testing import BaseTestCase
 
 
 class TestOrder(BaseTestCase):
 
-    _auto_commit = False
+    _includes = ('djed.renderer', 'pyramid_chameleon')
+    _autocommit = False
     _settings = {'djed.renderer.order.test': 'l1 l2 l3'}
 
     def test_custom_dir(self):
@@ -24,7 +25,8 @@ class TestOrder(BaseTestCase):
 
 class TestOrderUnknown(BaseTestCase):
 
-    _auto_commit = False
+    _includes = ('djed.renderer', 'pyramid_chameleon')
+    _autocommit = False
     _settings = {'djed.renderer.order.test2': 'l1 l2 l3'}
 
     def test_custom_dir(self):

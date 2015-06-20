@@ -5,6 +5,7 @@ python:
   - 3.4
 
 install:
+  - pip install -e git+git://github.com/djedproject/djed.testing#egg=djed.testing
   - pip install -e .[testing]
 
 script:

@@ -2,7 +2,7 @@ from unittest import mock
 from pyramid.exceptions import ConfigurationError
 from pyramid.exceptions import ConfigurationConflictError
 
-from .base import BaseTestCase
+from djed.testing import BaseTestCase
 
 
 class TestLayerDirective(BaseTestCase):
@@ -22,7 +22,8 @@ class TestLayerDirective(BaseTestCase):
 
 class TestLayer(BaseTestCase):
 
-    _auto_commit = False
+    _includes = ('djed.renderer', 'pyramid_chameleon')
+    _autocommit = False
 
     def test_layer_registration(self):
         from djed.renderer.layer import ID_LAYER
@@ -90,6 +91,8 @@ class TestLayer(BaseTestCase):
 
 
 class TestTemplateFilter(BaseTestCase):
+
+    _includes = ('djed.renderer', 'pyramid_chameleon')
 
     def test_add_template_filter_err(self):
         def _filter(context, request):
