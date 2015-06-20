@@ -1,6 +1,6 @@
-from djed.renderer.layer import template_filter
-from djed.renderer.renderer import render
-from djed.renderer.renderer import RendererNotFound
+from .layer import template_filter
+from .renderer import render
+from .renderer import RendererNotFound
 
 def includeme(config):
     import os
@@ -8,9 +8,9 @@ def includeme(config):
     from pyramid.settings import aslist
     from pyramid.exceptions import ConfigurationError
 
-    from djed.renderer.renderer import lt_renderer_factory
-    from djed.renderer.layer import add_layer, add_layers, change_layers_order
-    from djed.renderer.layer import add_template_filter
+    from .renderer import lt_renderer_factory
+    from .layer import add_layer, add_layers, change_layers_order
+    from .layer import add_template_filter
 
 
     # config directives
